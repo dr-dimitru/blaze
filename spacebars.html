@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Documentation of Meteor's `spacebars` package.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Spacebars | BlazeJS</title>
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style/main.css">
+  </head>
+  <body>
+    <div id="wrap">
+  <div id="header">
+    <div id="site-nav">
+  <a class="logo" href="/"><img src="logo/logo.png" /></a>
+  <span class="sub-title"></span>
+
+  
+
+  <div class="nav-group right">
+
+  	<div class="nav-item">
+    	<a href="/" title="Overview">
+    		Overview
+    	</a>
+    </div>
+    <div class="nav-item">
+    	<a href="guide.html" title="Guide">
+    		Guide
+    	</a>
+    </div>
+    <div class="nav-item">
+    	<a href="docs.html" title="API Docs">
+    		API Docs
+    	</a>
+    </div>
+    <div class="nav-item">
+    	<a href="https://forums.meteor.com/c/blaze" title="Forums" target="_blank">
+    		Forums
+    	</a>
+    </div>
+  </div>
+
+</div>
+
+  </div>
+  <div id="sidebar">
+    <div id="sidebar-mobile">
+  <!--
+     Disabled search since it doesn't seem to work well
+    <input class="search-box st-default-search-input">
+    <br>
+  -->
+  <select class="version-select">
+    
+      <option value="v1">v1</option>
+    
+  </select>
+</div>
+
+<ul class="categories">
+  
+    <li>
+      
+      <ul class="menu-root">
+        
+          
+          <li>
+            <a href="index.html" class="sidebar-link">
+              Overview
+            </a>
+          </li>
+        
+          
+          <li>
+            <a href="guide.html" class="sidebar-link">
+              Guide
+            </a>
+          </li>
+        
+      </ul>
+    </li>
+  
+    <li>
+      
+        <p>API</p>
+      
+      <ul class="menu-root">
+        
+          
+          <li>
+            <a href="templates.html" class="sidebar-link">
+              Templates
+            </a>
+          </li>
+        
+          
+          <li>
+            <a href="blaze.html" class="sidebar-link">
+              Blaze
+            </a>
+          </li>
+        
+          
+          <li>
+            <a href="" class="sidebar-link current">
+              Spacebars
+            </a>
+          </li>
+        
+      </ul>
+    </li>
+  
+
+  </div>
+  <div id="content">
+    <h1>Spacebars</h1>
+    <p class="edit-discuss-links">
+      <a href="https://github.com/meteor/blaze/tree/master/site/source/spacebars.md" target="_blank">Edit on GitHub</a>
+      
+    </p>
+    <p>Spacebars is a Meteor template language inspired by<br><a href="http://handlebarsjs.com/" target="_blank" rel="external">Handlebars</a>.  It shares some of the spirit and syntax<br>of Handlebars, but it has been tailored to produce reactive Meteor templates<br>when compiled.</p>
+<h2 id="getting_Started">Getting Started</h2>
+
+<p>A Spacebars template consists of HTML interspersed with template tags, which are<br>delimited by <code>{{</code> and <code>}}</code> (two curly braces).</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"myPage"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;pageTitle&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"></div><div class="line">  &#123;&#123;&gt; nav&#125;&#125;</div><div class="line"></div><div class="line">  &#123;&#123;#each posts&#125;&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post-content"</span>&gt;</span></div><div class="line">        &#123;&#123;&#123;content&#125;&#125;&#125;</div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  &#123;&#123;/each&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>As illustrated by the above example, there are four major types of template<br>tags:</p>
+<ul>
+<li><p><code>{{pageTitle}}</code> - Double-braced template tags are used to insert a string of<br>text.  The text is automatically made safe.  It may contain any characters<br>(like <code>&lt;</code>) and will never produce HTML tags.</p>
+</li>
+<li><p><code>{{> nav}}</code> - Inclusion template tags are used to insert another template by<br>name.</p>
+</li>
+<li><p><code>{{#each}}</code> - Block template tags are notable for having a block of content.<br>The block tags <code>#if</code>, <code>#each</code>, <code>#with</code>, and <code>#unless</code> are built in, and it is<br>also possible define custom ones.  Some block tags, like <code>#each</code> and <code>#with</code>,<br>establish a new data context for evaluating their contents.  In the above<br>example, <code>{{title}}</code> and <code>{{content}}</code> most likely refer to properties of the<br>current post (though they could also refer to template helpers).</p>
+</li>
+<li><p><code>{{{content}}}</code> - Triple-braced template tags are used to insert raw HTML.  Be<br>careful with these!  It’s your job to make sure the HTML is safe, either by<br>generating it yourself or sanitizing it if it came from a user input.</p>
+</li>
+</ul>
+<h2 id="reactivity_Model">Reactivity Model</h2>
+
+
+<p>Spacebars templates update reactively at a fine-grained level in response to<br>changing data.</p>
+<p>Each template tag’s DOM is updated automatically when it evaluates to a new<br>value, while avoiding unnecessary re-rendering as much as possible.  For<br>example, a double-braced tag replace its text node when its text value changes.<br>An <code>#if</code> re-renders its contents only when the condition changes from truthy to<br>falsy or vice versa.</p>
+<h2 id="identifiers_And_Paths">Identifiers and Paths</h2>
+
+
+<p>A Spacebars identifier is either a JavaScript identifier name or any string<br>enclosed in square brackets (<code>[</code> and <code>]</code>).  There are also the special<br>identifiers <code>this</code> (or equivalently, <code>.</code>) and <code>..</code>.  Brackets are required to<br>use one of the following as the first element of a path: <code>else</code>, <code>this</code>, <code>true</code>,<br><code>false</code>, and <code>null</code>.  Brackets are not required around JavaScript keywords and<br>reserved words like <code>var</code> and <code>for</code>.</p>
+<p>A Spacebars path is a series of one or more identifiers separated by either <code>.</code><br>or <code>/</code>, such as <code>foo</code>, <code>foo.bar</code>, <code>this.name</code>, <code>../title</code>, or <code>foo.[0]</code> (numeric indices must be enclosed in brackets).</p>
+<h2 id="name_Resolution">Name Resolution</h2>
+
+<p>The first identifier in a path is resolved in one of two ways:</p>
+<ul>
+<li><p>Indexing the current data context.  The identifier <code>foo</code> refers to the <code>foo</code><br>property of the current data context object.</p>
+</li>
+<li><p>As a template helper.  The identifier <code>foo</code> refers to a helper function (or<br>constant value) that is accessible from the current template.</p>
+</li>
+</ul>
+<p>Template helpers take priority over properties of the data context.</p>
+<p>If a path starts with <code>..</code>, then the <em>enclosing</em> data context is used instead of<br>the current one.  The enclosing data context might be the one outside the<br>current <code>#each</code>, <code>#with</code>, or template inclusion.</p>
+<h2 id="path_Evaluation">Path Evaluation</h2>
+
+<p>When evaluating a path, identifiers after the first are used to index into the<br>object so far, like JavaScript’s <code>.</code>.  However, an error is never thrown when<br>trying to index into a non-object or an undefined value.</p>
+<p>In addition, Spacebars will call functions for you, so <code>{{foo.bar}}</code> may be<br>taken to mean <code>foo().bar</code>, <code>foo.bar()</code>, or <code>foo().bar()</code> as appropriate.</p>
+<h2 id="helper_Arguments">Helper Arguments</h2>
+
+<p>An argument to a helper can be any path or identifier, or a string, boolean, or<br>number literal, or null.</p>
+<p>Double-braced and triple-braced template tags take any number of positional and<br>keyword arguments:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;frob a b c verily=true&#125;&#125;</div></pre></td></tr></table></figure>
+<p>calls:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">frob(a, b, c, Spacebars.kw(&#123;verily: <span class="literal">true</span>&#125;))</div></pre></td></tr></table></figure></p>
+<p><code>Spacebars.kw</code> constructs an object that is <code>instanceof Spacebars.kw</code> and whose<br><code>.hash</code> property is equal to its argument.</p>
+<p>The helper’s implementation can access the current data context as <code>this</code>.</p>
+<h2 id="inclusion_And_Block_Argurments">Inclusion and Block Arguments</h2>
+
+<p>Inclusion tags (<code>{{> foo}}</code>) and block tags (<code>{{#foo}}</code>) take a single<br>data argument, or no argument.  Any other form of arguments will be interpreted<br>as an <em>object specification</em> or a <em>nested helper</em>:</p>
+<ul>
+<li><p><strong>Object specification</strong>: If there are only keyword arguments, as in <code>{{#with
+  x=1 y=2}}</code> or <code>{{> prettyBox color=red}}</code>, the keyword arguments will be<br>assembled into a data object with properties named after the keywords.</p>
+</li>
+<li><p><strong>Nested Helper</strong>: If there is a positional argument followed by other<br>(positional or keyword arguments), the first argument is called on the others<br>using the normal helper argument calling convention.</p>
+</li>
+</ul>
+<h2 id="template_Tag_Placement">Template Tag Placement Limitations</h2>
+
+<p>Unlike purely string-based template systems, Spacebars is HTML-aware and<br>designed to update the DOM automatically.  As a result, you can’t use a template<br>tag to insert strings of HTML that don’t stand on their own, such as a lone HTML<br>start tag or end tag, or that can’t be easily modified, such as the name of an<br>HTML element.</p>
+<p>There are three main locations in the HTML where template tags are allowed:</p>
+<ul>
+<li>At element level (i.e. anywhere an HTML tag could go)</li>
+<li>In an attribute value</li>
+<li>In a start tag in place of an attribute name/value pair</li>
+</ul>
+<p>The behavior of a template tag is affected by where it is located in the HTML,<br>and not all tags are allowed at all locations.</p>
+<h3 id="Double-braced-Tags"><a href="#Double-braced-Tags" class="headerlink" title="Double-braced Tags"></a>Double-braced Tags</h3><p>A double-braced tag at element level or in an attribute value typically evalutes<br>to a string.  If it evalutes to something else, the value will be cast to a<br>string, unless the value is <code>null</code>, <code>undefined</code>, or <code>false</code>, which results in<br>nothing being displayed.</p>
+<p>Values returned from helpers must be pure text, not HTML.  (That is, strings<br>should have <code>&lt;</code>, not <code>&amp;lt;</code>.)  Spacebars will perform any necessary escaping if<br>a template is rendered to HTML.</p>
+<h3 id="SafeString"><a href="#SafeString" class="headerlink" title="SafeString"></a>SafeString</h3><p>If a double-braced tag at element level evalutes to an object created with<br><code>Spacebars.SafeString(&quot;&lt;span&gt;Some HTML&lt;/span&gt;&quot;)</code>, the HTML is inserted at the<br>current location.  The code that calls <code>SafeString</code> is asserting that this HTML<br>is safe to insert.</p>
+<h2 id="In-Attribute-Values"><a href="#In-Attribute-Values" class="headerlink" title="In Attribute Values"></a>In Attribute Values</h2><p>A double-braced tag may be part of, or all of, an HTML attribute value:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"checky &#123;&#123;moreClasses&#125;&#125;"</span> <span class="attr">checked</span>=<span class="string">&#123;&#123;isChecked&#125;&#125;</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>An attribute value that consists entirely of template tags that return <code>null</code>,<br><code>undefined</code>, or <code>false</code> is considered absent; otherwise, the attribute is<br>considered present, even if its value is empty.</p>
+<h3 id="Dynamic-Attributes"><a href="#Dynamic-Attributes" class="headerlink" title="Dynamic Attributes"></a>Dynamic Attributes</h3><p>A double-braced tag can be used in an HTML start tag to specify an arbitrary set<br>of attributes:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> &#123;&#123;<span class="attr">attrs</span>&#125;&#125;&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span> &#123;&#123;<span class="attr">isChecked</span>&#125;&#125;&gt;</span></div></pre></td></tr></table></figure>
+<p>The tag must evaluate to an object that serves as a dictionary of attribute name<br>and value strings.  For convenience, the value may also be a string or null.  An<br>empty string or null expands to <code>{}</code>.  A non-empty string must be an attribute<br>name, and expands to an attribute with an empty value; for example, <code>&quot;checked&quot;</code><br>expands to <code>{checked: &quot;&quot;}</code> (which, as far as HTML is concerned, means the<br>checkbox is checked).</p>
+<p>To summarize:</p>
+<table><br>  <thead><br>    <tr><th>Return Value</th><th>Equivalent HTML</th></tr><br>  </thead><br>  <tbody><br>    <tr><td><code>“”</code> or <code>null</code> or <code>{}</code></td></tr><br>    <tr><td><code>“checked”</code> or <code>{checked: “”}</code></td><td><code>checked</code></td></tr><br>    <tr><td><code>{checked: “”, ‘class’: “foo”}</code></td><td><code>checked  class=foo</code></td></tr><br>    <tr><td><code>“checked class=foo”</code></td><td>ERROR, string is not an attribute name</td></tr><br>  </tbody><br></table>
+
+<p>You can combine multiple dynamic attributes tags with other attributes:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">foo</span> <span class="attr">class</span>=<span class="string">&#123;&#123;myClass&#125;&#125;</span> &#123;&#123;<span class="attr">attrs1</span>&#125;&#125; &#123;&#123;<span class="attr">attrs2</span>&#125;&#125;&gt;</span>...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Attributes from dynamic attribute tags are combined from left to right, after<br>normal attributes, with later attribute values overwriting previous ones.<br>Multiple values for the same attribute are not merged in any way, so if <code>attrs1</code><br>specifies a value for the <code>class</code> attribute, it will overwrite <code>{{myClass}}</code>.<br>As always, Spacebars takes care of recalculating the element’s attributes if any<br>of <code>myClass</code>, <code>attrs1</code>, or <code>attrs2</code> changes reactively.</p>
+<h2 id="Triple-braced-Tags"><a href="#Triple-braced-Tags" class="headerlink" title="Triple-braced Tags"></a>Triple-braced Tags</h2><p>Triple-braced tags are used to insert raw HTML into a template:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"snippet"</span>&gt;</span></div><div class="line">  &#123;&#123;&#123;snippetBody&#125;&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>The inserted HTML must consist of balanced HTML tags.  You can’t, for example,<br>insert <code>&quot;&lt;/div&gt;&lt;div&gt;&quot;</code> to close an existing div and open a new one.</p>
+<p>This template tag cannot be used in attributes or in an HTML start tag.</p>
+<h2 id="Inclusion-Tags"><a href="#Inclusion-Tags" class="headerlink" title="Inclusion Tags"></a>Inclusion Tags</h2><p>An inclusion tag takes the form <code>{{> templateName}}</code> or <code>{{> templateName
+dataObj}}</code>.  Other argument forms are syntactic sugar for constructing a data<br>object (see Inclusion and Block Arguments).</p>
+<p>An inclusion tag inserts an instantiation of the given template at the current<br>location.  If there is an argument, it becomes the data context, much as if the<br>following code were used:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#with dataObj&#125;&#125;</div><div class="line">  &#123;&#123;&gt; templateName&#125;&#125;</div><div class="line">&#123;&#123;/with&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Instead of simply naming a template, an inclusion tag can also specify a path<br>that evalutes to a template object, or to a function that returns a template<br>object.</p>
+<p>Note that the above two points interact in a way that can be surprising!<br>If <code>foo</code> is a template helper function that returns another template, then<br><code>{{>foo bar}}</code> will <em>first</em> push <code>bar</code> onto the data context stack <em>then</em> call<br><code>foo()</code>, due to the way this line is expanded as shown above. You will need to<br>use <code>Template.parentData(1)</code> to access the original context. This differs<br>from regular helper calls like <code>{{foo bar}}</code>, in which <code>bar</code> is passed as a<br>parameter rather than pushed onto the data context stack.</p>
+<h2 id="Function-Returning-a-Template"><a href="#Function-Returning-a-Template" class="headerlink" title="Function Returning a Template"></a>Function Returning a Template</h2><p>If an inclusion tag resolves to a function, the function must return a template<br>object or <code>null</code>.  The function is reactively re-run, and if its return value<br>changes, the template will be replaced.</p>
+<h2 id="Block-Tags"><a href="#Block-Tags" class="headerlink" title="Block Tags"></a>Block Tags</h2><p>Block tags invoke built-in directives or custom block helpers, passing a block<br>of template content that may be instantiated once, more than once, or not at all<br>by the directive or helper.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#block&#125;&#125;</div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">&#123;&#123;/block&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Block tags may also specify “else” content, separated from the main content by<br>the special template tag <code>{{else}}</code>.</p>
+<p>A block tag’s content must consist of HTML with balanced tags.</p>
+<p>Block tags can be used inside attribute values:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"&#123;&#123;#if done&#125;&#125;done&#123;&#123;else&#125;&#125;notdone&#123;&#123;/if&#125;&#125;"</span>&gt;</span></div><div class="line">  ...</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="If-Unless"><a href="#If-Unless" class="headerlink" title="If/Unless"></a>If/Unless</h2><p>An <code>#if</code> template tag renders either its main content or its “else” content,<br>depending on the value of its data argument.  Any falsy JavaScript value<br>(including <code>null</code>, <code>undefined</code>, <code>0</code>, <code>&quot;&quot;</code>, and <code>false</code>) is considered false, as<br>well as the empty array, while any other value is considered true.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#if something&#125;&#125;</div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It's true<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">&#123;&#123;else&#125;&#125;</div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>It's false<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">&#123;&#123;/if&#125;&#125;</div></pre></td></tr></table></figure>
+<p><code>#unless</code> is just <code>#if</code> with the condition inverted.</p>
+<h2 id="With"><a href="#With" class="headerlink" title="With"></a>With</h2><p>A <code>#with</code> template tag establishes a new data context object for its contents.<br>The properties of the data context object are where Spacebars looks when<br>resolving template tag names.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#with employee&#125;&#125;</div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>Name: &#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>Age: &#123;&#123;age&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">&#123;&#123;/with&#125;&#125;</div></pre></td></tr></table></figure>
+<p>We can take advantage of the object specification form of a block tag to define<br>an object with properties we name:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#with x=1 y=2&#125;&#125;</div><div class="line">  &#123;&#123;&#123;getHTMLForPoint this&#125;&#125;&#125;</div><div class="line">&#123;&#123;/with&#125;&#125;</div></pre></td></tr></table></figure>
+<p>If the argument to <code>#with</code> is falsy (by the same rules as for <code>#if</code>), the<br>content is not rendered.  An “else” block may be provided, which will be<br>rendered instead.</p>
+<p>If the argument to <code>#with</code> is a string or other non-object value, it may be<br>promoted to a JavaScript wrapper object (also known as a boxed value) when<br>passed to helpers, because JavaScript traditionally only allows an object for<br><code>this</code>.  Use <code>String(this)</code> to get an unboxed string value or <code>Number(this)</code> to<br>get an unboxed number value.</p>
+<h2 id="Each"><a href="#Each" class="headerlink" title="Each"></a>Each</h2><p>An <code>#each</code> template tag takes a sequence argument and inserts its content for<br>each item in the sequence, setting the data context to the value of that item:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">&#123;&#123;#each people&#125;&#125;</div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">&#123;&#123;/each&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>The newer variant of <code>#each</code> doesn’t change the data context but introduces a<br>new variable that can be used in the body to refer to the current item:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">&#123;&#123;#each person in people&#125;&#125;</div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;person.name&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">&#123;&#123;/each&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>The argument is typically a Meteor cursor (the result of <code>collection.find()</code>,<br>for example), but it may also be a plain JavaScript array, <code>null</code>, or<br><code>undefined</code>.</p>
+<p>An “else” section may be provided, which is used (with no new data<br>context) if there are zero items in the sequence at any time.</p>
+<p>You can use a special variable <code>@index</code> in the body of <code>#each</code> to get the<br>0-based index of the currently rendered value in the sequence.</p>
+<h3 id="Reactivity-Model-for-Each"><a href="#Reactivity-Model-for-Each" class="headerlink" title="Reactivity Model for Each"></a>Reactivity Model for Each</h3><p>When the argument to <code>#each</code> changes, the DOM is always updated to reflect the<br>new sequence, but it’s sometimes significant exactly how that is achieved.  When<br>the argument is a Meteor live cursor, the <code>#each</code> has access to fine-grained<br>updates to the sequence – add, remove, move, and change callbacks – and the<br>items are all documents identified by unique ids.  As long as the cursor itself<br>remains constant (i.e. the query doesn’t change), it is very easy to reason<br>about how the DOM will be updated as the contents of the cursor change.  The<br>rendered content for each document persists as long as the document is in the<br>cursor, and when documents are re-ordered, the DOM is re-ordered.</p>
+<p>Things are more complicated if the argument to the <code>#each</code> reactively changes<br>between different cursor objects, or between arrays of plain JavaScript objects<br>that may not be identified clearly.  The implementation of <code>#each</code> tries to be<br>intelligent without doing too much expensive work. Specifically, it tries to<br>identify items between the old and new array or cursor with the following<br>strategy:</p>
+<ol>
+<li>For objects with an <code>_id</code> field, use that field as the identification key</li>
+<li>For objects with no <code>_id</code> field, use the array index as the identification<br>key. In this case, appends are fast but prepends are slower.</li>
+<li>For numbers or strings, use their value as the identification key.</li>
+</ol>
+<p>In case of duplicate identification keys, all duplicates after the first are<br>replaced with random ones. Using objects with unique <code>_id</code> fields is the way to<br>get full control over the identity of rendered elements.</p>
+<h2 id="Let"><a href="#Let" class="headerlink" title="Let"></a>Let</h2><p>The <code>#let</code> tag creates a new alias variable for a given expression. While it<br>doesn’t change the data context, it allows to refer to an expression (helper,<br>data context, another variable) with a short-hand within the template:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#let name=person.bio.firstName color=generateColor&#125;&#125;</div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123;name&#125;&#125; gets a &#123;&#123;color&#125;&#125; card!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">&#123;&#123;/let&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Variables introduced this way take precedence over names of templates, global<br>helpers, fields of the current data context and previously introduced<br>variables with the same name.</p>
+<h2 id="Custom-Block-Helpers"><a href="#Custom-Block-Helpers" class="headerlink" title="Custom Block Helpers"></a>Custom Block Helpers</h2><p>To define your own block helper, simply declare a template, and then invoke it<br>using <code>{{#someTemplate}}</code> (block) instead of <code>{{> someTemplate}}</code> (inclusion)<br>syntax.</p>
+<p>When a template is invoked as a block helper, it can use <code>{{>
+Template.contentBlock}}</code> and <code>{{> Template.elseBlock}}</code> to include the block<br>content it was passed.</p>
+<p>Here is a simple block helper that wraps its content in a div:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"note"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"note"</span>&gt;</span></div><div class="line">    &#123;&#123;&gt; Template.contentBlock&#125;&#125;</div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>You would invoke it as:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#note&#125;&#125;</div><div class="line">  Any content here</div><div class="line">&#123;&#123;/note&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Here is an example of implementing <code>#unless</code> in terms of <code>#if</code> (ignoring for the<br>moment that <code>unless</code> is a built-in directive):</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"unless"</span>&gt;</span></div><div class="line">  &#123;&#123;#if this&#125;&#125;</div><div class="line">    &#123;&#123;&gt; Template.elseBlock&#125;&#125;</div><div class="line">  &#123;&#123;else&#125;&#125;</div><div class="line">    &#123;&#123;&gt; Template.contentBlock&#125;&#125;</div><div class="line">  &#123;&#123;/if&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Note that the argument to <code>#unless</code> (the condition) becomes the data context in<br>the <code>unless</code> template and is accessed via <code>this</code>.  However, it would not work<br>very well if this data context was visible to <code>Template.contentBlock</code>, which is<br>supplied by the user of <code>unless</code>.</p>
+<p>Therefore, when you include <code>{{> Template.contentBlock}}</code>, Spacebars hides the<br>data context of the calling template, and any data contexts established in the<br>template by <code>#each</code> and <code>#with</code>.  They are not visible to the content block,<br>even via <code>..</code>.  Put another way, it’s as if the <code>{{> Template.contentBlock}}</code><br>inclusion occurred at the location where <code>{{#unless}}</code> was invoked, as far as<br>the data context stack is concerned.</p>
+<p>You can pass an argument to <code>{{> Template.contentBlock}}</code> or <code>{{>
+Template.elseBlock}}</code> to invoke it with a data context of your choice.  You can<br>also use <code>{{#if Template.contentBlock}}</code> to see if the current template was<br>invoked as a block helper rather than an inclusion.</p>
+<h2 id="Comment-Tags"><a href="#Comment-Tags" class="headerlink" title="Comment Tags"></a>Comment Tags</h2><p>Comment template tags begin with <code>{{!</code> and can contain any characters except for<br><code>}}</code>.  Comments are removed upon compilation and never appear in the compiled<br>template code or the generated HTML.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;! Start of a section&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"section"</span>&gt;</span></div><div class="line">  ...</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Comment tags also come in a “block comment” form.  Block comments may contain<br><code>{{</code> and <code>}}</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;!-- This is a block comment.</div><div class="line">We can write &#123;&#123;foo&#125;&#125; and it doesn't matter.</div><div class="line">&#123;&#123;#with x&#125;&#125;This code is commented out.&#123;&#123;/with&#125;&#125;</div><div class="line">--&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Comment tags can be used wherever other template tags are allowed.</p>
+<h1 id="Nested-sub-expressions"><a href="#Nested-sub-expressions" class="headerlink" title="Nested sub-expressions"></a>Nested sub-expressions</h1><p>Sometimes an argument to a helper call is best expressed as a return value of<br>some other expression. For this and other cases, one can use parentheses to<br>express the evaluation order of nested expressions.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;capitalize (getSummary post)&#125;&#125;</div></pre></td></tr></table></figure>
+<p>In this example, the result of the <code>getSummary</code> helper call will be passed to<br>the <code>capitalize</code> helper.</p>
+<p>Sub-expressions can be used to calculate key-word arguments, too:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;&gt; tmpl arg=(helper post)&#125;&#125;</div></pre></td></tr></table></figure>
+<h2 id="HTML-Dialect"><a href="#HTML-Dialect" class="headerlink" title="HTML Dialect"></a>HTML Dialect</h2><p>Spacebars templates are written in <a href="http://developers.whatwg.org/syntax.html" target="_blank" rel="external">standard<br>HTML</a> extended with<br>additional syntax (i.e. template tags).</p>
+<p>Spacebars validates your HTML as it goes and will throw a compile-time<br>error if you violate basic HTML syntax in a way that prevents it from<br>determining the structure of your code.</p>
+<p>Spacebars is not lenient about malformed markup the way a web browser<br>is.  While the latest HTML spec standardizes how browsers should<br>recover from parse errors, these cases are still not valid HTML.  For<br>example, a browser may recover from a bare <code>&lt;</code> that does not begin a<br>well-formed HTML tag, while Spacebars will not.  However, gone are the<br>restrictions of the XHTML days; attribute values do not have to<br>quoted, and tags are not case-sensitive, for example.</p>
+<p>You must close all HTML tags except the ones specified to have no end<br>tag, like BR, HR, IMG and INPUT.  You can write these tags as <code>&lt;br&gt;</code><br>or equivalently <code>&lt;br/&gt;</code>.</p>
+<p>The HTML spec allows omitting some additional end tags, such as P and<br>LI, but Spacebars doesn’t currently support this.</p>
+<h2 id="Top-level-Elements-in-a-html-file"><a href="#Top-level-Elements-in-a-html-file" class="headerlink" title="Top-level Elements in a .html file"></a>Top-level Elements in a <code>.html</code> file</h2><p>Technically speaking, the <code>&lt;template&gt;</code> element is not part of the Spacebars<br>language. A <code>foo.html</code> template file in Meteor consists of one or more of the<br>following elements:</p>
+<ul>
+<li><p><code>&lt;template name=&quot;myName&quot;&gt;</code> - The <code>&lt;template&gt;</code> element contains a Spacebars<br>template (as defined in the rest of this file) which will be compiled to the<br><code>Template.myName</code> component.</p>
+</li>
+<li><p><code>&lt;head&gt;</code> - Static HTML that will be inserted into the <code>&lt;head&gt;</code> element of the<br>default HTML boilerplate page. Cannot contain template tags. If <code>&lt;head&gt;</code> is<br>used multiple times (perhaps in different files), the contents of all of the<br><code>&lt;head&gt;</code> elements are concatenated.</p>
+</li>
+<li><p><code>&lt;body&gt;</code> - A template that will be inserted into the <code>&lt;body&gt;</code> of the main<br>page.  It will be compiled to the <code>Template.body</code> component. If <code>&lt;body&gt;</code> is<br>used multiple times (perhaps in different files), the contents of all of the<br><code>&lt;body&gt;</code> elements are concatenated.</p>
+</li>
+</ul>
+<h2 id="Escaping-Curly-Braces"><a href="#Escaping-Curly-Braces" class="headerlink" title="Escaping Curly Braces"></a>Escaping Curly Braces</h2><p>To insert a literal <code>{{</code>, <code>{{{</code>, or any number of curly braces, put a<br>vertical bar after it.  So <code>{{|</code> will show up as <code>{{</code>, <code>{{{|</code> will<br>show up as <code>{{{</code>, and so on.</p>
+
+    <div class="bottom-nav">
+      
+      
+        <span>← <a href="blaze.html">Blaze</a></span>
+      
+      
+    </div>
+    <p class="edit-link">
+      <a href="https://github.com/meteor/blaze/tree/master/site/source/spacebars.md" target="_blank">Edit this page on GitHub</a>
+    </p>
+    
+  </div>
+
+  <!-- mobile only -->
+  <div id="mobile-header">
+    <a class="menu-button"></a>
+    <a class="logo" href="/">
+      <img src="logo/icon.png" />
+    </a>
+  </div>
+  <div id="mobile-shade"></div>
+
+</div>
+
+    <script src="script/smooth-scroll.min.js"></script>
+    <script src="script/main.js"></script>
+    <script>
+
+      // mobile
+      document.querySelector('#mobile-header .menu-button')
+        .addEventListener('click', function () {
+          document.body.classList.toggle('sidebar-open')
+        })
+      document.getElementById('mobile-shade').addEventListener('click', function () {
+        document.body.classList.remove('sidebar-open')
+      })
+
+    </script>
+  </body>
+</html>

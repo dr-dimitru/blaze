@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Documentation of Meteor's template API.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Templates | BlazeJS</title>
+    <link rel="icon" href="images/icon.ico" type="image/x-icon">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style/main.css">
+  </head>
+  <body>
+    <div id="wrap">
+  <div id="header">
+    <div id="site-nav">
+  <a class="logo" href="/"><img src="logo/logo.png" /></a>
+  <span class="sub-title"></span>
+
+  
+
+  <div class="nav-group right">
+
+  	<div class="nav-item">
+    	<a href="/" title="Overview">
+    		Overview
+    	</a>
+    </div>
+    <div class="nav-item">
+    	<a href="guide.html" title="Guide">
+    		Guide
+    	</a>
+    </div>
+    <div class="nav-item">
+    	<a href="docs.html" title="API Docs">
+    		API Docs
+    	</a>
+    </div>
+    <div class="nav-item">
+    	<a href="https://forums.meteor.com/c/blaze" title="Forums" target="_blank">
+    		Forums
+    	</a>
+    </div>
+  </div>
+
+</div>
+
+  </div>
+  <div id="sidebar">
+    <div id="sidebar-mobile">
+  <!--
+     Disabled search since it doesn't seem to work well
+    <input class="search-box st-default-search-input">
+    <br>
+  -->
+  <select class="version-select">
+    
+      <option value="v1">v1</option>
+    
+  </select>
+</div>
+
+<ul class="categories">
+  
+    <li>
+      
+      <ul class="menu-root">
+        
+          
+          <li>
+            <a href="index.html" class="sidebar-link">
+              Overview
+            </a>
+          </li>
+        
+          
+          <li>
+            <a href="guide.html" class="sidebar-link">
+              Guide
+            </a>
+          </li>
+        
+      </ul>
+    </li>
+  
+    <li>
+      
+        <p>API</p>
+      
+      <ul class="menu-root">
+        
+          
+          <li>
+            <a href="" class="sidebar-link current">
+              Templates
+            </a>
+          </li>
+        
+          
+          <li>
+            <a href="blaze.html" class="sidebar-link">
+              Blaze
+            </a>
+          </li>
+        
+          
+          <li>
+            <a href="spacebars.html" class="sidebar-link">
+              Spacebars
+            </a>
+          </li>
+        
+      </ul>
+    </li>
+  
+
+  </div>
+  <div id="content">
+    <h1>Templates</h1>
+    <p class="edit-discuss-links">
+      <a href="https://github.com/meteor/blaze/tree/master/site/source/templates.md" target="_blank">Edit on GitHub</a>
+      
+    </p>
+    <p>When you write a template as <code>&lt;template name=&quot;foo&quot;&gt; ... &lt;/template&gt;</code> in an HTML file in your app, Meteor generates a<br>“template object” named <code>Template.foo</code>. Note that template name cannot<br>contain hyphens and other special characters.</p>
+<p>The same template may occur many times on a page, and these<br>occurrences are called template instances.  Template instances have a<br>life cycle of being created, put into the document, and later taken<br>out of the document and destroyed.  Meteor manages these stages for<br>you, including determining when a template instance has been removed<br>or replaced and should be cleaned up.  You can associate data with a<br>template instance, and you can access its DOM nodes when it is in the<br>document.</p>
+<p>Read more about templates and how to use them in the <a href="#pkg_spacebars">Spacebars</a><br>package README and the <a href="http://guide.meteor.com/blaze.html" target="_blank" rel="external">Blaze</a> article in the Meteor Guide.</p>
+<h2 title="Template.<em>myTemplate</em>" id="template_myTemplate">Template Declarations</h2>
+
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;.&lt;/em&gt;events" class="title-api selflink" id="Template-events">
+      <a href="#Template-events" class="link primary">Template#events(eventMap)</a>
+    </h3>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L477" target="_blank">
+          (blaze/template.js, line 477)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Specify event handlers for this template.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">eventMap</span>
+            <span class="type"><a href="#eventmaps">Event Map</a></span>
+          </dt>
+          <dd>
+            <p>Event handlers to associate with this template.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>Declare event handlers for instances of this template. Multiple calls add<br>new event handlers in addition to the existing ones.</p>
+<p>See <a href="#eventmaps">Event Maps</a> for a detailed description of the event<br>map format and how event handling works in Meteor.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;.&lt;/em&gt;helpers" class="title-api selflink" id="Template-helpers">
+      <a href="#Template-helpers" class="link primary">Template#helpers(helpers)</a>
+    </h3>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L443" target="_blank">
+          (blaze/template.js, line 443)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Specify template helpers available to this template.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">helpers</span>
+            <span class="type">Object</span>
+          </dt>
+          <dd>
+            <p>Dictionary of helper functions by name.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>Each template has a local dictionary of helpers that are made available to it,<br>and this call specifies helpers to add to the template’s dictionary.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Template.myTemplate.helpers(&#123;</div><div class="line">  foo() &#123;</div><div class="line">    <span class="keyword">return</span> Session.get(<span class="string">"foo"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>Now you can invoke this helper with <code>{{foo}}</code> in the template defined<br>with <code>&lt;template name=&quot;myTemplate&quot;&gt;</code>.</p>
+<p>Helpers can accept positional and keyword arguments:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Template.myTemplate.helpers(&#123;</div><div class="line">  displayName(firstName, lastName, keyword) &#123;</div><div class="line">    <span class="keyword">var</span> prefix = keyword.hash.title ? keyword.hash.title + <span class="string">" "</span> : <span class="string">""</span>;</div><div class="line">    <span class="keyword">return</span> prefix + firstName + <span class="string">" "</span> + lastName;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>Then you can call this helper from template like this:</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;displayName <span class="string">"John"</span> <span class="string">"Doe"</span> title=<span class="string">"President"</span>&#125;&#125;</div></pre></td></tr></table></figure>
+<p>You can learn more about arguments to helpers in <a href="http://blazejs.org/spacebars">Spacebars<br>Readme</a>.</p>
+<p>Under the hood, each helper starts a new<br><a href="#/full/tracker_autorun"><code>Tracker.autorun</code></a>.  When its reactive<br>dependencies change, the helper is rerun. Helpers depend on their data<br>context, passed arguments and other reactive data sources accessed during<br>execution.</p>
+<p>To create a helper that can be used in any template, use<br><a href="#template_registerhelper"><code>Template.registerHelper</code></a>.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;.&lt;/em&gt;onRendered" class="title-api selflink" id="Template-onRendered">
+      <a href="#Template-onRendered" class="link primary">Template#onRendered</a>
+    </h3>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L78" target="_blank">
+          (blaze/template.js, line 78)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Register a function to be called when an instance of this template is inserted into the DOM.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">callback</span>
+            <span class="type">Function</span>
+          </dt>
+          <dd>
+            <p>A function to be added as a callback.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>Callbacks added with this method are called once when an instance of<br>Template.<em>myTemplate</em> is rendered into DOM nodes and put into the document for<br>the first time.</p>
+<p>In the body of a callback, <code>this</code> is a <a href="#template_inst">template instance</a><br>object that is unique to this occurrence of the template and persists across<br>re-renderings. Use the <code>onCreated</code> and <code>onDestroyed</code> callbacks to perform<br>initialization or clean-up on the object.</p>
+<p>Because your template has been rendered, you can use functions like<br><a href="#template_findAll"><code>this.findAll</code></a> which look at its DOM nodes.</p>
+<p>This can be a good place to apply any DOM manipulations you want, after the<br>template is rendered for the first time.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"myPictures"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    &#123;&#123;#each pictures&#125;&#125;</div><div class="line">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"item"</span> <span class="attr">src</span>=<span class="string">"/&#123;&#123;.&#125;&#125;"</span>/&gt;</span></div><div class="line">    &#123;&#123;/each&#125;&#125;</div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Template.myPictures.onRendered(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// Use the Packery jQuery plugin</span></div><div class="line">  <span class="keyword">this</span>.$(<span class="string">'.container'</span>).packery(&#123;</div><div class="line">    itemSelector: <span class="string">'.item'</span>,</div><div class="line">    gutter: <span class="number">10</span></div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;.&lt;/em&gt;onCreated" class="title-api selflink" id="Template-onCreated">
+      <a href="#Template-onCreated" class="link primary">Template#onCreated</a>
+    </h3>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L65" target="_blank">
+          (blaze/template.js, line 65)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Register a function to be called when an instance of this template is created.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">callback</span>
+            <span class="type">Function</span>
+          </dt>
+          <dd>
+            <p>A function to be added as a callback.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>Callbacks added with this method are called before your template’s logic is<br>evaluated for the first time. Inside a callback, <code>this</code> is the new <a href="#template_inst">template<br>instance</a> object. Properties you set on this object will be<br>visible from the callbacks added with <code>onRendered</code> and <code>onDestroyed</code> methods and<br>from event handlers.</p>
+<p>These callbacks fire once and are the first group of callbacks to fire.<br>Handling the <code>created</code> event is a useful way to set up values on template<br>instance that are read from template helpers using <code>Template.instance()</code>.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Template.myPictures.onCreated(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// set up local reactive variables</span></div><div class="line">  <span class="keyword">this</span>.highlightedPicture = <span class="keyword">new</span> ReactiveVar(<span class="literal">null</span>);</div><div class="line"></div><div class="line">  <span class="comment">// register this template within some central store</span></div><div class="line">  GalleryTemplates.push(<span class="keyword">this</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;.&lt;/em&gt;onDestroyed" class="title-api selflink" id="Template-onDestroyed">
+      <a href="#Template-onDestroyed" class="link primary">Template#onDestroyed</a>
+    </h3>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L91" target="_blank">
+          (blaze/template.js, line 91)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Register a function to be called when an instance of this template is removed from the DOM and destroyed.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">callback</span>
+            <span class="type">Function</span>
+          </dt>
+          <dd>
+            <p>A function to be added as a callback.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>These callbacks are called when an occurrence of a template is taken off<br>the page for any reason and not replaced with a re-rendering.  Inside<br>a callback, <code>this</code> is the <a href="#template_inst">template instance</a> object<br>being destroyed.</p>
+<p>This group of callbacks is most useful for cleaning up or undoing any external<br>effects of <code>created</code> or <code>rendered</code> groups. This group fires once and is the last<br>callback to fire.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Template.myPictures.onDestroyed(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// deregister from some central store</span></div><div class="line">  GalleryTemplates = _.without(GalleryTemplates, <span class="keyword">this</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="template_inst">Template instances</h2>
+
+<p>A template instance object represents an occurrence of a template in<br>the document.  It can be used to access the DOM and it can be<br>assigned properties that persist as the template is reactively updated.</p>
+<p>Template instance objects are found as the value of <code>this</code> in the<br><code>onCreated</code>, <code>onRendered</code>, and <code>onDestroyed</code> template callbacks, and as an<br>argument to event handlers.  You can access the current template instance<br>from helpers using <a href="#template_instance"><code>Template.instance()</code></a>.</p>
+<p>In addition to the properties and functions described below, you can assign<br>additional properties of your choice to the object. Use the<br><a href="#template_onCreated"><code>onCreated</code></a> and <a href="#template_onDestroyed"><code>onDestroyed</code></a><br>methods to add callbacks performing initialization or clean-up on the object.</p>
+<p>You can only access <code>findAll</code>, <code>find</code>, <code>firstNode</code>, and <code>lastNode</code> from the<br><code>onRendered</code> callback and event handlers, not from <code>onCreated</code> and<br><code>onDestroyed</code>, because they require the template instance to be in the DOM.</p>
+<p>Template instance objects are <code>instanceof Blaze.TemplateInstance</code>.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;findAll" class="title-api selflink" id="Blaze-TemplateInstance-findAll">
+      <a href="#Blaze-TemplateInstance-findAll" class="link primary">Blaze.TemplateInstance#findAll(selector)</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L304" target="_blank">
+          (blaze/template.js, line 304)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Find all elements matching <code>selector</code> in this template instance.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">selector</span>
+            <span class="type">String</span>
+          </dt>
+          <dd>
+            <p>The CSS selector to match, scoped to the template contents.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p><code>template.findAll</code> returns an array of DOM elements matching <code>selector</code>.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;$" class="title-api selflink" id="Blaze-TemplateInstance-$">
+      <a href="#Blaze-TemplateInstance-$" class="link primary">Blaze.TemplateInstance#$(selector)</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L291" target="_blank">
+          (blaze/template.js, line 291)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Find all elements matching <code>selector</code> in this template instance, and return them as a JQuery object.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">selector</span>
+            <span class="type">String</span>
+          </dt>
+          <dd>
+            <p>The CSS selector to match, scoped to the template contents.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p><code>template.$</code> returns a <a href="http://api.jquery.com/Types/#jQuery" target="_blank" rel="external">jQuery object</a> of<br>those same elements. jQuery objects are similar to arrays, with<br>additional methods defined by the jQuery library.</p>
+<p>The template instance serves as the document root for the selector. Only<br>elements inside the template and its sub-templates can match parts of<br>the selector.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;find" class="title-api selflink" id="Blaze-TemplateInstance-find">
+      <a href="#Blaze-TemplateInstance-find" class="link primary">Blaze.TemplateInstance#find(selector)</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L314" target="_blank">
+          (blaze/template.js, line 314)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Find one element matching <code>selector</code> in this template instance.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">selector</span>
+            <span class="type">String</span>
+          </dt>
+          <dd>
+            <p>The CSS selector to match, scoped to the template contents.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>Returns one DOM element matching <code>selector</code>, or <code>null</code> if there are no<br>such elements.</p>
+<p>The template instance serves as the document root for the selector. Only<br>elements inside the template and its sub-templates can match parts of<br>the selector.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;firstNode" class="title-api selflink" id="Blaze-TemplateInstance-firstNode">
+      <a href="#Blaze-TemplateInstance-firstNode" class="link primary">Blaze.TemplateInstance#firstNode</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L254" target="_blank">
+          (blaze/template.js, line 254)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>The first top-level DOM node in this template instance.</p>
+    </div>
+
+
+
+  </div>
+</div>
+
+<p>The two nodes <code>firstNode</code> and <code>lastNode</code> indicate the extent of the<br>rendered template in the DOM.  The rendered template includes these<br>nodes, their intervening siblings, and their descendents.  These two<br>nodes are siblings (they have the same parent), and <code>lastNode</code> comes<br>after <code>firstNode</code>, or else they are the same node.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;lastNode" class="title-api selflink" id="Blaze-TemplateInstance-lastNode">
+      <a href="#Blaze-TemplateInstance-lastNode" class="link primary">Blaze.TemplateInstance#lastNode</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L264" target="_blank">
+          (blaze/template.js, line 264)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>The last top-level DOM node in this template instance.</p>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;data" class="title-api selflink" id="Blaze-TemplateInstance-data">
+      <a href="#Blaze-TemplateInstance-data" class="link primary">Blaze.TemplateInstance#data</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L161" target="_blank">
+          (blaze/template.js, line 161)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>The data context of this instance's latest invocation.</p>
+    </div>
+
+
+
+  </div>
+</div>
+
+<p>This property provides access to the data context at the top level of<br>the template.  It is updated each time the template is re-rendered.<br>Access is read-only and non-reactive.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;autorun" class="title-api selflink" id="Blaze-TemplateInstance-autorun">
+      <a href="#Blaze-TemplateInstance-autorun" class="link primary">Blaze.TemplateInstance#autorun(runFunc)</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L324" target="_blank">
+          (blaze/template.js, line 324)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>A version of <a href="#tracker_autorun">Tracker.autorun</a> that is stopped when the template is destroyed.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">runFunc</span>
+            <span class="type">Function</span>
+          </dt>
+          <dd>
+            <p>The function to run. It receives one argument: a Tracker.Computation object.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>You can use <code>this.autorun</code> from an <a href="#template_onCreated"><code>onCreated</code></a> or<br><a href="#template_onRendered"><code>onRendered</code></a> callback to reactively update the DOM<br>or the template instance.  You can use <code>Template.currentData()</code> inside<br>of this callback to access reactive data context of the template instance.<br>The Computation is automatically stopped when the template is destroyed.</p>
+<p>Alias for <code>template.view.autorun</code>.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;subscribe" class="title-api selflink" id="Blaze-TemplateInstance-subscribe">
+      <a href="#Blaze-TemplateInstance-subscribe" class="link primary">Blaze.TemplateInstance#subscribe(name, [arg1, arg2...], [options])</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L347" target="_blank">
+          (blaze/template.js, line 347)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>A version of <a href="#meteor_subscribe">Meteor.subscribe</a> that is stopped
+when the template is destroyed.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">name</span>
+            <span class="type">String</span>
+          </dt>
+          <dd>
+            <p>Name of the subscription.  Matches the name of the
+server's <code>publish()</code> call.</p>
+          </dd>
+          <dt>
+            <span class="name">arg1, arg2...</span>
+            <span class="type">Any</span>
+          </dt>
+          <dd>
+            <p>Optional arguments passed to publisher function
+on server.</p>
+          </dd>
+      </dl>
+
+      <h4 class="subheading">Options</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">onReady</span>
+            <span class="type">Function</span>
+          </dt>
+          <dd>
+            <p>Passed to <a href="#meteor_subscribe"><code>Meteor.subscribe</code></a>.</p>
+          </dd>
+          <dt>
+            <span class="name">onStop</span>
+            <span class="type">Function</span>
+          </dt>
+          <dd>
+            <p>Passed to <a href="#meteor_subscribe"><code>Meteor.subscribe</code></a>.</p>
+          </dd>
+          <dt>
+            <span class="name">connection</span>
+            <span class="type"><a href="#ddp_connect">DDP Connection</a></span>
+          </dt>
+          <dd>
+            <p>The connection on which to make the
+subscription.</p>
+          </dd>
+      </dl>
+
+  </div>
+</div>
+
+<p>You can use <code>this.subscribe</code> from an <a href="#template_onCreated"><code>onCreated</code></a> callback<br>to specify which data publications this template depends on. The subscription is<br>automatically stopped when the template is destroyed.</p>
+<p>There is a complementary function <code>Template.instance().subscriptionsReady()</code><br>which returns true when all of the subscriptions called with <code>this.subscribe</code><br>are ready.</p>
+<p>Inside the template’s HTML, you can use the built-in helper<br><code>Template.subscriptionsReady</code>, which is an easy pattern for showing loading<br>indicators in your templates when they depend on data loaded from subscriptions.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Template.notifications.onCreated(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// Use this.subscribe inside onCreated callback</span></div><div class="line">  <span class="keyword">this</span>.subscribe(<span class="string">"notifications"</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"notifications"</span>&gt;</span></div><div class="line">  &#123;&#123;#if Template.subscriptionsReady&#125;&#125;</div><div class="line">    <span class="comment">&lt;!-- This is displayed when all data is ready. --&gt;</span></div><div class="line">    &#123;&#123;#each notifications&#125;&#125;</div><div class="line">      &#123;&#123;&gt; notification&#125;&#125;</div><div class="line">    &#123;&#123;/each&#125;&#125;</div><div class="line">  &#123;&#123;else&#125;&#125;</div><div class="line">    Loading...</div><div class="line">  &#123;&#123;/if&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Another example where the subscription depends on the data context:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Template.comments.onCreated(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// Use this.subscribe with the data context reactively</span></div><div class="line">  <span class="keyword">this</span>.autorun(() =&gt; &#123;</div><div class="line">    <span class="keyword">var</span> dataContext = Template.currentData();</div><div class="line">    <span class="keyword">this</span>.subscribe(<span class="string">"comments"</span>, dataContext.postId);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#with post&#125;&#125;</div><div class="line">  &#123;&#123;&gt; comments postId=_id&#125;&#125;</div><div class="line">&#123;&#123;/with&#125;&#125;</div></pre></td></tr></table></figure>
+<p>Another example where you want to initialize a plugin when the subscription is<br>done:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Template.listing.onRendered(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> template = <span class="keyword">this</span>;</div><div class="line"></div><div class="line">  template.subscribe(<span class="string">'listOfThings'</span>, () =&gt; &#123;</div><div class="line">    <span class="comment">// Wait for the data to load using the callback</span></div><div class="line">    Tracker.afterFlush(() =&gt; &#123;</div><div class="line">      <span class="comment">// Use Tracker.afterFlush to wait for the UI to re-render</span></div><div class="line">      <span class="comment">// then use highlight.js to highlight a code snippet</span></div><div class="line">      highlightBlock(template.find(<span class="string">'.code'</span>));</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h3 title="&lt;em&gt;#&lt;/em&gt;view" class="title-api selflink" id="Blaze-TemplateInstance-view">
+      <a href="#Blaze-TemplateInstance-view" class="link primary">Blaze.TemplateInstance#view</a>
+    </h3>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L243" target="_blank">
+          (blaze/template.js, line 243)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>The <a href="#blaze_view">View</a> object for this invocation of the template.</p>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h2 title="&lt;em&gt;#&lt;/em&gt;registerHelper" class="title-api selflink" id="Template-registerHelper">
+      <a href="#Template-registerHelper" class="link primary">Template.registerHelper(name, function)</a>
+    </h2>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L556" target="_blank">
+          (blaze/template.js, line 556)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Defines a <a href="#template_helpers">helper function</a> which can be used from all templates.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">name</span>
+            <span class="type">String</span>
+          </dt>
+          <dd>
+            <p>The name of the helper function you are defining.</p>
+          </dd>
+          <dt>
+            <span class="name">function</span>
+            <span class="type">Function</span>
+          </dt>
+          <dd>
+            <p>The helper function itself.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h2 title="&lt;em&gt;#&lt;/em&gt;instance" class="title-api selflink" id="Template-instance">
+      <a href="#Template-instance" class="link primary">Template.instance()</a>
+    </h2>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L505" target="_blank">
+          (blaze/template.js, line 505)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>The <a href="#template_inst">template instance</a> corresponding to the current template helper, event handler, callback, or autorun.  If there isn't one, <code>null</code>.</p>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h2 title="&lt;em&gt;#&lt;/em&gt;currentData" class="title-api selflink" id="Template-currentData">
+      <a href="#Template-currentData" class="link primary">Template.currentData()</a>
+    </h2>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L537" target="_blank">
+          (blaze/template.js, line 537)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <ul>
+<li>Inside an <code>onCreated</code>, <code>onRendered</code>, or <code>onDestroyed</code> callback, returns
+the data context of the template.</li>
+
+<li>Inside an event handler, returns the data context of the template on which
+this event handler was defined.</li>
+
+<li>Inside a helper, returns the data context of the DOM node where the helper
+was used.</li>
+</ul>
+
+<p>Establishes a reactive dependency on the result.</p>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h2 title="&lt;em&gt;#&lt;/em&gt;parentData" class="title-api selflink" id="Template-parentData">
+      <a href="#Template-parentData" class="link primary">Template.parentData([numLevels])</a>
+    </h2>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/blaze/template.js#L546" target="_blank">
+          (blaze/template.js, line 546)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Accesses other data contexts that enclose the current data context.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">numLevels</span>
+            <span class="type">Integer</span>
+          </dt>
+          <dd>
+            <p>The number of levels beyond the current data context to look. Defaults to 1.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p>For example, <code>Template.parentData(0)</code> is equivalent to <code>Template.currentData()</code>.  <code>Template.parentData(2)</code><br>is equivalent to <code>{{../..}}</code> in a template.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Client
+    </div>
+
+    <h2 title="&lt;em&gt;#&lt;/em&gt;body" class="title-api selflink" id="Template-body">
+      <a href="#Template-body" class="link primary">Template.body</a>
+    </h2>
+
+    <div class="subtext-api">
+        <div class="code">import { Template } from 'meteor/templating-runtime'</div>
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/templating-runtime/templating.js#L47" target="_blank">
+          (templating-runtime/templating.js, line 47)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>The <a href="#templates_api">template object</a> representing your <code>&lt;body&gt;</code>
+tag.</p>
+    </div>
+
+
+
+  </div>
+</div>
+
+<p>You can define helpers and event maps on <code>Template.body</code> just like on<br>any <code>Template.myTemplate</code> object.</p>
+<p>Helpers on <code>Template.body</code> are only available in the <code>&lt;body&gt;</code> tags of<br>your app.  To register a global helper, use<br><a href="#template_registerhelper">Template.registerHelper</a>.<br>Event maps on <code>Template.body</code> don’t apply to elements added to the<br>body via <code>Blaze.render</code>, jQuery, or the DOM API, or to the body element<br>itself.  To handle events on the body, window, or document, use jQuery<br>or the DOM API.</p>
+<div class="api  new-api-box">
+  <div class="api-heading">
+    <div class="locus">
+      Templates
+    </div>
+
+    <h2 title="{{&gt; Template.dynamic }}" class="title-api selflink" id="Template-dynamic">
+      <a href="#Template-dynamic" class="link primary">{{> Template.dynamic template=template [data=data]  }}</a>
+    </h2>
+
+    <div class="subtext-api">
+
+        <a class="src-code link secondary" href="https://github.com/meteor/blaze/blob/master/packages/templating-runtime/dynamic.js#L3" target="_blank">
+          (templating-runtime/dynamic.js, line 3)
+        </a>
+    </div>
+  </div>
+
+  <div class="api-body">
+    <div class="desc">
+      <p>Choose a template to include dynamically, by name.</p>
+    </div>
+
+      <h4 class="subheading">Arguments</h4>
+      <dl class="args">
+          <dt>
+            <span class="name">template</span>
+            <span class="type">String</span>
+          </dt>
+          <dd>
+            <p>The name of the template to include.</p>
+          </dd>
+          <dt>
+            <span class="name">data</span>
+            <span class="type">Object</span>
+          </dt>
+          <dd>
+            <p>Optional. The data context in which to include the
+template.</p>
+          </dd>
+      </dl>
+
+
+  </div>
+</div>
+
+<p><code>Template.dynamic</code> allows you to include a template by name, where the name<br>may be calculated by a helper and may change reactively.  The <code>data</code><br>argument is optional, and if it is omitted, the current data context<br>is used. It’s also possible, to use <code>Template.dynamic</code> as a block helper<br>(<code>{{#Template.dynamic}} ... {{/Template.dynamic}}</code>)</p>
+<p>For example, if there is a template named “foo”, <code>{{> Template.dynamic
+template="foo"}}</code> is equivalent to <code>{{> foo}}</code> and<br><code>{{#Template.dynamic template="foo"}} ... {{/Template.dynamic}}</code><br>is equivalent to <code>{{#foo}} ... {{/foo}}</code>.</p>
+<h2 id="eventmaps">Event Maps</h2>
+
+<p>An event map is an object where<br>the properties specify a set of events to handle, and the values are<br>the handlers for those events. The property can be in one of several<br>forms:</p>
+<dl><br><dt><span class="name"><em>eventtype</em></span></dt><dd><p>Matches a particular type of event, such as ‘click’.</p>
+</dd><br><br><dt><span class="name"><em>eventtype selector</em></span></dt><dd><p>Matches a particular type of event, but only when it appears on<br>an element that matches a certain CSS selector.</p>
+</dd><br><br><dt><span class="name"><em>event1, event2</em></span></dt><dd><p>To handle more than one type of event with the same function, use a<br>comma-separated list.</p>
+</dd><br></dl>
+
+<p>The handler function receives two arguments: <code>event</code>, an object with<br>information about the event, and <code>template</code>, a <a href="#template_inst">template<br>instance</a> for the template where the handler is<br>defined.  The handler also receives some additional context data in<br><code>this</code>, depending on the context of the current element handling the<br>event.  In a template, an element’s context is the<br>data context where that element occurs, which is set by<br>block helpers such as <code>#with</code> and <code>#each</code>.</p>
+<p>Example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="comment">// Fires when any element is clicked</span></div><div class="line">  <span class="string">'click'</span>(event) &#123; ... &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// Fires when any element with the 'accept' class is clicked</span></div><div class="line">  <span class="string">'click .accept'</span>(event) &#123; ... &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// Fires when 'accept' is clicked or focused, or a key is pressed</span></div><div class="line">  <span class="string">'click .accept, focus .accept, keypress'</span>(event) &#123; ... &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Most events bubble up the document tree from their originating<br>element.  For example, <code>&#39;click p&#39;</code> catches a click anywhere in a<br>paragraph, even if the click originated on a link, span, or some other<br>element inside the paragraph.  The originating element of the event<br>is available as the <code>target</code> property, while the element that matched<br>the selector and is currently handling it is called <code>currentTarget</code>.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">'click p'</span>(event) &#123;</div><div class="line">    <span class="keyword">var</span> paragraph = event.currentTarget; <span class="comment">// always a P</span></div><div class="line">    <span class="keyword">var</span> clickedElement = event.target; <span class="comment">// could be the P or a child element</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>If a selector matches multiple elements that an event bubbles to, it<br>will be called multiple times, for example in the case of <code>&#39;click
+div&#39;</code> or <code>&#39;click *&#39;</code>.  If no selector is given, the handler<br>will only be called once, on the original target element.</p>
+<p>The following properties and methods are available on the event object<br>passed to handlers:</p>
+<dl class="objdesc"><br><dt><span class="name">type</span><span class="type">String</span></dt><dd><p>The event’s type, such as “click”, “blur” or “keypress”.</p>
+</dd><br><br><dt><span class="name">target</span><span class="type">DOM Element</span></dt><dd><p>The element that originated the event.</p>
+</dd><br><br><dt><span class="name">currentTarget</span><span class="type">DOM Element</span></dt><dd><p>The element currently handling the event.  This is the element that<br>matched the selector in the event map.  For events that bubble, it may<br>be <code>target</code> or an ancestor of <code>target</code>, and its value changes as the<br>event bubbles.</p>
+</dd><br><br><dt><span class="name">which</span><span class="type">Number</span></dt><dd><p>For mouse events, the number of the mouse button (1=left, 2=middle, 3=right).<br>For key events, a character or key code.</p>
+</dd><br><br><dt><span class="name">stopPropagation()</span></dt><dd><p>Prevent the event from propagating (bubbling) up to other elements.<br>Other event handlers matching the same element are still fired, in<br>this and other event maps.</p>
+</dd><br><br><dt><span class="name">stopImmediatePropagation()</span></dt><dd><p>Prevent all additional event handlers from being run on this event,<br>including other handlers in this event map, handlers reached by<br>bubbling, and handlers in other event maps.</p>
+</dd><br><br><dt><span class="name">preventDefault()</span></dt><dd><p>Prevents the action the browser would normally take in response to this<br>event, such as following a link or submitting a form.  Further handlers<br>are still called, but cannot reverse the effect.</p>
+</dd><br><br><dt><span class="name">isPropagationStopped()</span></dt><dd><p>Returns whether <code>stopPropagation()</code> has been called for this event.</p>
+</dd><br><br><dt><span class="name">isImmediatePropagationStopped()</span></dt><dd><p>Returns whether <code>stopImmediatePropagation()</code> has been called for this event.</p>
+</dd><br><br><dt><span class="name">isDefaultPrevented()</span></dt><dd><p>Returns whether <code>preventDefault()</code> has been called for this event.</p>
+</dd><br></dl>
+
+<p>Returning <code>false</code> from a handler is the same as calling<br>both <code>stopImmediatePropagation</code> and <code>preventDefault</code> on the event.</p>
+<p>Event types and their uses include:</p>
+<dl class="objdesc"><br><dt><span class="name"><code>click</code></span></dt><dd><p>Mouse click on any element, including a link, button, form control, or div.<br>Use <code>preventDefault()</code> to prevent a clicked link from being followed.<br>Some ways of activating an element from the keyboard also fire <code>click</code>.</p>
+</dd><br><br><dt><span class="name"><code>dblclick</code></span></dt><dd><p>Double-click.</p>
+</dd><br><br><dt><span class="name"><code>focus, blur</code></span></dt><dd><p>A text input field or other form control gains or loses focus.  You<br>can make any element focusable by giving it a <code>tabindex</code> property.<br>Browsers differ on whether links, checkboxes, and radio buttons are<br>natively focusable.  These events do not bubble.</p>
+</dd><br><br><dt><span class="name"><code>change</code></span></dt><dd><p>A checkbox or radio button changes state.  For text fields, use<br><code>blur</code> or key events to respond to changes.</p>
+</dd><br><br><dt><span class="name"><code>mouseenter, mouseleave</code></span></dt><dd><p> The pointer enters or<br>leaves the bounds of an element.  These events do not bubble.</p>
+</dd><br><br><dt><span class="name"><code>mousedown, mouseup</code></span></dt><dd><p>The mouse button is newly down or up.</p>
+</dd><br><br><dt><span class="name"><code>keydown, keypress, keyup</code></span></dt><dd><p>The user presses a keyboard key.  <code>keypress</code> is most useful for<br>catching typing in text fields, while <code>keydown</code> and <code>keyup</code> can be<br>used for arrow keys or modifier keys.</p>
+</dd><br><br></dl>
+
+<p>Other DOM events are available as well, but for the events above,<br>Meteor has taken some care to ensure that they work uniformly in all<br>browsers.</p>
+<h2 id="spacebars">Spacebars</h2>
+
+<p>Spacebars is the language used to write Meteor templates. It is inspired by <a href="http://handlebarsjs.com/" target="_blank" rel="external">Handlebars</a>. It shares some of the spirit and syntax of Handlebars, but has been tailored to produce reactive Meteor templates when compiled.</p>
+<p>For more information about Spacebars, see the <a href="http://blazejs.org/spacebars">Spacebars README</a>.</p>
+
+    <div class="bottom-nav">
+      
+      
+        <span>← <a href="docs.html">API Docs</a></span>
+      
+      
+        <span style="float:right"><a href="blaze.html">Blaze</a> →</span>
+      
+    </div>
+    <p class="edit-link">
+      <a href="https://github.com/meteor/blaze/tree/master/site/source/templates.md" target="_blank">Edit this page on GitHub</a>
+    </p>
+    
+  </div>
+
+  <!-- mobile only -->
+  <div id="mobile-header">
+    <a class="menu-button"></a>
+    <a class="logo" href="/">
+      <img src="logo/icon.png" />
+    </a>
+  </div>
+  <div id="mobile-shade"></div>
+
+</div>
+
+    <script src="script/smooth-scroll.min.js"></script>
+    <script src="script/main.js"></script>
+    <script>
+
+      // mobile
+      document.querySelector('#mobile-header .menu-button')
+        .addEventListener('click', function () {
+          document.body.classList.toggle('sidebar-open')
+        })
+      document.getElementById('mobile-shade').addEventListener('click', function () {
+        document.body.classList.remove('sidebar-open')
+      })
+
+    </script>
+  </body>
+</html>
